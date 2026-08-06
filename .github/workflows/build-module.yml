@@ -1,4 +1,4 @@
-Bname: Create Release on Tag
+name: Create Release on Tag
 
 on:
   push:
