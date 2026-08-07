@@ -4,7 +4,7 @@
 
 ## Custom package feed (GitHub Pages)
 
-Репозиторий также публикует полноценный [OpenWRT package feed](https://slava-shchipunov.github.io/awg-openwrt/)
+Репозиторий также публикует полноценный [OpenWRT package feed](https://2grey.github.io/awg-openwrt/)
 для apk на OpenWrt 25.x и новее.
 
 [Подробная документация](docs/custom-feed.md)
