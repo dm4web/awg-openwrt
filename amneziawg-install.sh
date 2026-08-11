@@ -4,6 +4,8 @@
 
 PKG_MANAGER=""
 PKG_EXT=""
+AWG_OPENWRT_REPOSITORY="${AWG_OPENWRT_REPOSITORY:-2Grey/awg-openwrt}"
+AWG_OPENWRT_RELEASE_TAG="${AWG_OPENWRT_RELEASE_TAG:-}"
 
 usage() {
     cat <<EOF
@@ -133,7 +135,8 @@ install_awg_packages() {
     SUBTARGET=$(ubus call system board | jsonfilter -e '@.release.target' | cut -d '/' -f 2)
     VERSION=$(ubus call system board | jsonfilter -e '@.release.version')
     PKGPOSTFIX_BASE="_v${VERSION}_${PKGARCH}_${TARGET}_${SUBTARGET}"
-    BASE_URL="https://github.com/Slava-Shchipunov/awg-openwrt/releases/download/"
+    RELEASE_TAG="${AWG_OPENWRT_RELEASE_TAG:-v${VERSION}}"
+    BASE_URL="https://github.com/${AWG_OPENWRT_REPOSITORY}/releases/download/${RELEASE_TAG}/"
 
     # Определяем базовую версию протокола по релизу OpenWrt; после установки
     # amneziawg-tools уточняем AWG 3.0 по версии самой утилиты.
@@ -158,7 +161,7 @@ install_awg_packages() {
     if is_pkg_installed "kmod-amneziawg"; then
         echo "kmod-amneziawg already installed"
     else
-        KMOD_AMNEZIAWG_FILENAME=$(download_package "kmod-amneziawg" "$PKGPOSTFIX_BASE" "$AWG_DIR" "${BASE_URL}v${VERSION}/")
+        KMOD_AMNEZIAWG_FILENAME=$(download_package "kmod-amneziawg" "$PKGPOSTFIX_BASE" "$AWG_DIR" "$BASE_URL")
         if [ $? -eq 0 ]; then
             echo "kmod-amneziawg file downloaded successfully"
         else
@@ -179,7 +182,7 @@ install_awg_packages() {
     if is_pkg_installed "amneziawg-tools"; then
         echo "amneziawg-tools already installed"
     else
-        AMNEZIAWG_TOOLS_FILENAME=$(download_package "amneziawg-tools" "$PKGPOSTFIX_BASE" "$AWG_DIR" "${BASE_URL}v${VERSION}/")
+        AMNEZIAWG_TOOLS_FILENAME=$(download_package "amneziawg-tools" "$PKGPOSTFIX_BASE" "$AWG_DIR" "$BASE_URL")
         if [ $? -eq 0 ]; then
             echo "amneziawg-tools file downloaded successfully"
         else
@@ -206,7 +209,7 @@ install_awg_packages() {
     if is_pkg_installed "luci-proto-amneziawg" || is_pkg_installed "luci-app-amneziawg"; then
         echo "$LUCI_PACKAGE_NAME already installed"
     else
-        LUCI_AMNEZIAWG_FILENAME=$(download_package "$LUCI_PACKAGE_NAME" "$PKGPOSTFIX_BASE" "$AWG_DIR" "${BASE_URL}v${VERSION}/")
+        LUCI_AMNEZIAWG_FILENAME=$(download_package "$LUCI_PACKAGE_NAME" "$PKGPOSTFIX_BASE" "$AWG_DIR" "$BASE_URL")
         if [ $? -eq 0 ]; then
             echo "$LUCI_PACKAGE_NAME file downloaded successfully"
         else
@@ -234,7 +237,7 @@ install_awg_packages() {
             if is_pkg_installed "luci-i18n-amneziawg-ru"; then
                 echo "luci-i18n-amneziawg-ru already installed"
             else
-                LUCI_I18N_AMNEZIAWG_RU_FILENAME=$(download_package "luci-i18n-amneziawg-ru" "$PKGPOSTFIX_BASE" "$AWG_DIR" "${BASE_URL}v${VERSION}/")
+                LUCI_I18N_AMNEZIAWG_RU_FILENAME=$(download_package "luci-i18n-amneziawg-ru" "$PKGPOSTFIX_BASE" "$AWG_DIR" "$BASE_URL")
                 if [ $? -eq 0 ]; then
                     echo "luci-i18n-amneziawg-ru file downloaded successfully"
                     install_local_pkg "$AWG_DIR/$LUCI_I18N_AMNEZIAWG_RU_FILENAME"

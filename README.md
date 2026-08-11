@@ -11,7 +11,7 @@ for APKs on OpenWrt 25.x and later.
 
 The `master` branch contains the agreed-upon set of AWG 3.0 components:
 
-- `kmod-amneziawg` — `v3.0.20260731`;
+- `kmod-amneziawg` — `v3.0.20260805`;
 - `amneziawg-tools` — `v3.0.20260805`;
 - `luci-proto-amneziawg` — Web interface and import/export of AWG 3.0 configurations.
 
@@ -25,7 +25,7 @@ When using `HeaderProtectionKey`, the `S1-S4` parameters must be at least 12.
 ## Automatic configuration of AmneziaWG for OpenWRT version 23.05.0 and newer
 
 The `master` branch builds an aligned AWG 3.0 stack: `kmod-amneziawg`
-`v3.0.20260731`, `amneziawg-tools` `v3.0.20260805`, and an AWG 3.0-aware
+`v3.0.20260805`, `amneziawg-tools` `v3.0.20260805`, and an AWG 3.0-aware
 LuCI/netifd integration.
 
 The UI and configuration import/export support
@@ -44,13 +44,13 @@ The script will create an interface, configure firewall rules for it, and also *
 To run the script, connect to the router via SSH, enter the command and follow the instructions on the screen:
 
 ```sh
-sh <(wget -O - https://raw.githubusercontent.com/Slava-Shchipunov/awg-openwrt/refs/heads/master/amneziawg-install.sh)
+sh <(wget -O - https://raw.githubusercontent.com/2Grey/awg-openwrt/refs/heads/master/amneziawg-install.sh)
 ```
 
 3. There is also a non-interactive mode for simple package installation (without questions about configuring an interface with the AmneziaWG protocol and installing the `luci-i18n-amneziawg-ru` package):
 
 ```sh
-sh <(wget -O - https://raw.githubusercontent.com/Slava-Shchipunov/awg-openwrt/refs/heads/master/amneziawg-install.sh) -en
+sh <(wget -O - https://raw.githubusercontent.com/2Grey/awg-openwrt/refs/heads/master/amneziawg-install.sh) -en
 ```
 
 4. In addition, for automatic configuration you can also use the [script](https://github.com/itdoginfo/domain-routing-openwrt) from user [@itdoginfo](https://github.com/itdoginfo).  
